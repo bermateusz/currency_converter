@@ -11,6 +11,6 @@ public class CronConfig {
 
     @Scheduled(cron = "*/5 * * * *")
     public void scheduleRequestTask(){
-    
+
     }
 }

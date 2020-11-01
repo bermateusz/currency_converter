@@ -1,21 +1,17 @@
-package entity;
-
-import java.time.LocalDateTime;
+package com.bereda.entity;
 
 public class CurrencyDTO {
     private String from;
     private String to;
     private Double value;
-    private LocalDateTime datestamp;
 
     public CurrencyDTO() {
     }
 
-    public CurrencyDTO(String from, String to, Double value, LocalDateTime datestamp) {
+    public CurrencyDTO(String from, String to, Double value) {
         this.from = from;
         this.to = to;
         this.value = value;
-        this.datestamp = datestamp;
     }
 
     public String getFrom() {
@@ -40,13 +36,5 @@ public class CurrencyDTO {
 
     public void setValue(Double value) {
         this.value = value;
-    }
-
-    public LocalDateTime getDatestamp() {
-        return datestamp;
-    }
-
-    public void setDatestamp(LocalDateTime datestamp) {
-        this.datestamp = datestamp;
     }
 }

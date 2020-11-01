@@ -1,32 +1,30 @@
-package entity;
+package com.bereda.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+
+import static java.time.LocalDateTime.now;
 
 @Entity
 @Table(name = "currencies")
 public class Currency {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String from;
     private String to;
     private Double value;
-    private LocalDateTime datestamp;
+    private LocalDateTime createdAt;
 
     public Currency() {
     }
 
-    public Currency(Long id, String from, String to, Double value, LocalDateTime datestamp) {
-        this.id = id;
-        this.from = from;
-        this.to = to;
-        this.value = value;
-        this.datestamp = datestamp;
+    public Currency(CurrencyDTO currencyDTO) {
+        this.from = currencyDTO.getFrom();
+        this.to = currencyDTO.getTo();
+        this.value = currencyDTO.getValue();
+        this.createdAt = now();
     }
 
     public Long getId() {
@@ -61,11 +59,11 @@ public class Currency {
         this.value = value;
     }
 
-    public LocalDateTime getDatestamp() {
-        return datestamp;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setDatestamp(LocalDateTime datestamp) {
-        this.datestamp = datestamp;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

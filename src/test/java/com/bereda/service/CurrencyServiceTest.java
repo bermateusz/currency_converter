@@ -1,6 +1,7 @@
 package com.bereda.service;
 
 import com.bereda.entity.Currency;
+import com.bereda.exception.CurrencyExchangeRateDoesNotExistException;
 import com.bereda.repository.CurrencyRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,10 +12,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class CurrencyRepositoryTest {
+class CurrencyServiceTest {
 
     private static final Fixtures fixtures = new Fixtures();
 
@@ -22,7 +25,7 @@ class CurrencyRepositoryTest {
     private CurrencyRepository currencyRepository;
 
     @InjectMocks
-    private com.bereda.service.CurrencyService currencyService;
+    private CurrencyService currencyService;
 
     @Test
     void shouldFindExchangeRateValueFromEurToPln() {
@@ -30,10 +33,10 @@ class CurrencyRepositoryTest {
         when(currencyRepository.findFirstByFromAndToOrderByCreatedAtDesc(fixtures.from, fixtures.to)).thenReturn(Optional.of(fixtures.eurToPlnData));
 
         //when
-//        Double exchangeRateValue = currencyRepository.findExchangeRate(fixtures.from, fixtures.to);
+        Double exchangeRateValue = currencyService.findExchangeRate(fixtures.from, fixtures.to);
 
         //then
-//        assertEquals(fixtures.rateEurToPln, exchangeRateValue);
+        assertEquals(fixtures.rateEurToPln, exchangeRateValue);
     }
 
     @Test
@@ -43,11 +46,11 @@ class CurrencyRepositoryTest {
         when(currencyRepository.findFirstByFromAndToOrderByCreatedAtDesc(fixtures.to, fixtures.from)).thenReturn(Optional.of(fixtures.plnToEurData));
 
         //when
-//        Double exchangeRateValue = currencyRepository.findExchangeRate(fixtures.from, fixtures.to);
+        Double exchangeRateValue = currencyService.findExchangeRate(fixtures.from, fixtures.to);
 
 
         //then
-//        assertEquals(fixtures.ratePlnToEur, exchangeRateValue);
+        assertEquals(fixtures.ratePlnToEur, exchangeRateValue);
     }
 
     @Test
@@ -57,7 +60,7 @@ class CurrencyRepositoryTest {
         when(currencyRepository.findFirstByFromAndToOrderByCreatedAtDesc(fixtures.to, fixtures.to)).thenReturn(Optional.empty());
 
         //when
-//        assertThrows(CurrencyExchangeRateDoesNotExistException.class, () -> currencyRepository.findExchangeRate(fixtures.to, fixtures.to));
+        assertThrows(CurrencyExchangeRateDoesNotExistException.class, () -> currencyService.findExchangeRate(fixtures.to, fixtures.to));
 
         //then
     }

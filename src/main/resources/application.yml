@@ -1,7 +1,34 @@
-server.port=8081
-spring.jpa.hibernate.ddl-auto=update
-spring.datasource.url=jdbc:mysql://127.0.0.1:3306/currencies_database
-spring.datasource.username=root
-spring.datasource.password=mati
+spring:
+  jpa:
+    database: POSTGRESQL
 
-apiRequest.url=https://api.exchangerate.host/latest?base=PLN
+  datasource:
+    platform: postgres
+    url:
+      jdbc:postgresql://localhost:5432/postgres
+    username:
+      postgres
+    password:
+      mati
+
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+server:
+  port: 8081
+
+apiRequest:
+  url: https://api.exchangerate.host/latest?base=PLN
+
+currencies:
+  - PLN
+  - EUR
+  - USD
+  - GBP

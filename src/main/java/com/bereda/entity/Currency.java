@@ -3,15 +3,14 @@ package com.bereda.entity;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-import static java.time.LocalDateTime.now;
-
 @Entity
 @Table(name = "currencies")
 public class Currency {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String from;
     private String to;
     private Double value;
@@ -20,11 +19,11 @@ public class Currency {
     public Currency() {
     }
 
-    public Currency(CurrencyDTO currencyDTO) {
-        this.from = currencyDTO.getFrom();
-        this.to = currencyDTO.getTo();
-        this.value = currencyDTO.getValue();
-        this.createdAt = now();
+    public Currency(String from, String to, Double value, LocalDateTime createdAt) {
+        this.from = from;
+        this.to = to;
+        this.value = value;
+        this.createdAt = createdAt;
     }
 
     public Long getId() {

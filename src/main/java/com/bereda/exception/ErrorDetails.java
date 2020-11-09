@@ -2,16 +2,12 @@ package com.bereda.exception;
 
 import org.springframework.http.HttpStatus;
 
-import java.time.LocalDateTime;
-
 public class ErrorDetails {
-    private LocalDateTime datestamp;
     private String message;
     private String details;
     private HttpStatus status;
 
-    public ErrorDetails(LocalDateTime datestamp, String message, String details, HttpStatus status) {
-        this.datestamp = datestamp;
+    public ErrorDetails(String message, String details, HttpStatus status) {
         this.message = message;
         this.details = details;
         this.status = status;
@@ -23,14 +19,6 @@ public class ErrorDetails {
 
     public void setStatus(HttpStatus status) {
         this.status = status;
-    }
-
-    public LocalDateTime getDatestamp() {
-        return datestamp;
-    }
-
-    public void setDatestamp(LocalDateTime datestamp) {
-        this.datestamp = datestamp;
     }
 
     public String getMessage() {

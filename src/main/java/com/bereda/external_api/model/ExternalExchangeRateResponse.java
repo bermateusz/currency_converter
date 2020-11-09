@@ -1,4 +1,4 @@
-package com.bereda.externalApi.model;
+package com.bereda.external_api.model;
 
 import java.util.Map;
 

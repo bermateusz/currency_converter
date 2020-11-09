@@ -1,41 +1,36 @@
 package com.bereda.service;
 
 import com.bereda.entity.Currency;
-import com.bereda.entity.CurrencyDTO;
 import com.bereda.exception.CurrencyExchangeRateDoesNotExistException;
 import com.bereda.repository.CurrencyRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import static java.time.LocalDateTime.now;
 
 @Service
 public class CurrencyService {
+
     private final CurrencyRepository currencyRepository;
 
-    public CurrencyService(CurrencyRepository currencyRepository) {
+    public CurrencyService(final CurrencyRepository currencyRepository) {
         this.currencyRepository = currencyRepository;
     }
 
-    public Currency save(CurrencyDTO currencyDTO) {
-        final Currency currency = new Currency(currencyDTO);
-        return currencyRepository.save(currency);
+    public void save(final String from, final String to, final Double value) {
+        currencyRepository.save(new Currency(from, to, value, now()));
     }
 
-
-    public Double findExchangeRate(String from, String to) {
-        final Optional<Currency> search1 = currencyRepository.findFirstByFromAndToOrderByCreatedAtDesc(from, to);
-        if (search1.isPresent()) {
-            return search1.get().getValue();
-        } else {
-            final Optional<Currency> search2 = currencyRepository.findFirstByFromAndToOrderByCreatedAtDesc(to, from);
-            if (search2.isPresent()) {
-                return 1 / search2.get().getValue();
-            }
+    public Double findExchangeRate(final String from, final String to) {
+        if (from.equals(to)) {
+            return 1.0;
         }
-        throw new CurrencyExchangeRateDoesNotExistException("Currency exchange rate from " + from + " to " + to + " does not exist");
+        return currencyRepository.findFirstByFromAndToOrderByCreatedAtDesc(from, to)
+                .map(Currency::getValue)
+                .or(() -> currencyRepository.findFirstByFromAndToOrderByCreatedAtDesc(to, from)
+                        .map(Currency::getValue))
+                .orElseThrow(() -> new CurrencyExchangeRateDoesNotExistException("Currency exchange rate from "
+                        + from + " to " + to + " does not exist"));
     }
 
 
-// zwracac 404 zamiast runtime exception rzucic normalny wyjatek msg finale dodac uporzadkowany kot dopisac test do findexchangerate
-//    zamienic optionale
 }

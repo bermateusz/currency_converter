@@ -1,6 +1,6 @@
-package com.bereda.externalApi.service;
+package com.bereda.external_api.service;
 
-import com.bereda.externalApi.model.ExternalExchangeRateResponse;
+import com.bereda.external_api.model.ExternalExchangeRateResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ public class ExternalExchangeRateApiService {
 
     private final String baseUrl;
 
-    public ExternalExchangeRateApiService(final RestTemplate restTemplate,    @Value("${apiRequest.url}") final String baseUrl) {
+    public ExternalExchangeRateApiService(final RestTemplate restTemplate, @Value("${apiRequest.url}") final String baseUrl) {
         this.restTemplate = restTemplate;
         this.baseUrl = baseUrl;
     }
@@ -23,7 +23,8 @@ public class ExternalExchangeRateApiService {
     }
 
     public ExternalExchangeRateResponse exchangeRateApiRequest() {
-        final ResponseEntity<ExternalExchangeRateResponse> currencyDTOResponseEntity = restTemplate.getForEntity(baseUrl, ExternalExchangeRateResponse.class);
+        final ResponseEntity<ExternalExchangeRateResponse> currencyDTOResponseEntity =
+                restTemplate.getForEntity(baseUrl, ExternalExchangeRateResponse.class);
         return currencyDTOResponseEntity.getBody();
 
     }

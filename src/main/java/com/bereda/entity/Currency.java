@@ -11,10 +11,13 @@ public class Currency {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "from_currency")
     private String from;
+    @Column(name = "to_currency")
     private String to;
     private Double value;
     private LocalDateTime createdAt;
+
 
     public Currency() {
     }

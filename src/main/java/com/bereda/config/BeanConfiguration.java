@@ -1,17 +1,24 @@
 package com.bereda.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
+
+import java.time.Clock;
 
 @Configuration
 public class BeanConfiguration {
 
 
     @Bean
-    public RestTemplate restTemplateBean(final ObjectMapper objectMapper) {
+    public RestTemplate restTemplateBean() {
         return new RestTemplate();
     }
+
+    @Bean
+    public Clock clockBean() {
+        return Clock.systemDefaultZone();
+    }
+
 
 }

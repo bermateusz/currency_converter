@@ -3,9 +3,11 @@ package com.bereda.cron;
 import com.bereda.external_api.model.ExternalExchangeRateResponse;
 import com.bereda.external_api.service.ExternalExchangeRateApiService;
 import com.bereda.service.CurrencyService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -13,25 +15,26 @@ public class ExternalExchangeRateApiScheduledTask {
 
     private final ExternalExchangeRateApiService externalExchangeRateApiService;
     private final CurrencyService currencyService;
+    private final List<String> currenciesToImport;
 
 
     public ExternalExchangeRateApiScheduledTask(final ExternalExchangeRateApiService externalExchangeRateApiService,
-                                                final CurrencyService currencyService) {
+                                                final CurrencyService currencyService, @Value("${currencies}") List<String> currenciesToImport) {
         this.externalExchangeRateApiService = externalExchangeRateApiService;
         this.currencyService = currencyService;
+        this.currenciesToImport = currenciesToImport;
     }
 
-    @Scheduled(cron = "*/15 * * * * *")
+    @Scheduled(cron = "* */5 * * * *")
     public void returnExchangeRateAndSave() {
-        final ExternalExchangeRateResponse externalExchangeRateResponse = externalExchangeRateApiService.exchangeRateApiRequest();
-
-        for (Map.Entry<String, Double> entry : externalExchangeRateResponse.getRates().entrySet()) {
-            currencyService.save("PLN", entry.getKey(), entry.getValue());
-        }
-
+        currenciesToImport.forEach(currency -> {
+            externalExchangeRateApiService.exchangeRateApiRequest(currency)
+                    .map(ExternalExchangeRateResponse::getRates)
+                    .ifPresent(rates -> {
+                        for (Map.Entry<String, Double> entry : rates.entrySet()) {
+                            currencyService.save(currency, entry.getKey(), entry.getValue());
+                        }
+                    });
+        });
     }
 }
-//masz napisac test do scheduledtaska ponadto url do api jako propertke w aplication.properties w xchange mam przekazywac walute a nei na sztywno
-//pln w app properties robisz liste walut ktora supportuje i ktora importuje np pare walut ktore mam zaimportowac (pln eur gbt usd)
-//dorob logike do wyciagania do xchange rate ze jak pln do pln to jeden musi zwracac z tych samych walut wartosc 1 bo po co
-// szukac properties na yml/ayml 

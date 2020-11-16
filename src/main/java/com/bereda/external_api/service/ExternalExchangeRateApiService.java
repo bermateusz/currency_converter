@@ -6,11 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Optional;
+
 @Service
 public class ExternalExchangeRateApiService {
 
     private final RestTemplate restTemplate;
-
     private final String baseUrl;
 
     public ExternalExchangeRateApiService(final RestTemplate restTemplate, @Value("${apiRequest.url}") final String baseUrl) {
@@ -18,14 +19,17 @@ public class ExternalExchangeRateApiService {
         this.baseUrl = baseUrl;
     }
 
-    public String getBaseUrl() {
-        return baseUrl;
-    }
 
-    public ExternalExchangeRateResponse exchangeRateApiRequest() {
-        final ResponseEntity<ExternalExchangeRateResponse> currencyDTOResponseEntity =
-                restTemplate.getForEntity(baseUrl, ExternalExchangeRateResponse.class);
-        return currencyDTOResponseEntity.getBody();
+    public Optional<ExternalExchangeRateResponse> exchangeRateApiRequest(final String currency) {
+        try{
+            final ResponseEntity<ExternalExchangeRateResponse> currencyDTOResponseEntity =
+                    restTemplate.getForEntity(baseUrl + currency, ExternalExchangeRateResponse.class);
+            return Optional.ofNullable(currencyDTOResponseEntity.getBody());
+        }catch (final Exception e){
+            //logging
+            return Optional.empty();
+        }
+
 
     }
 }

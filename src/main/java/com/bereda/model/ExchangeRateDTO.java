@@ -1,15 +1,11 @@
 package com.bereda.model;
 
+import lombok.Data;
+
+
+@Data
 public class ExchangeRateDTO {
-
     private final Double value;
-
-    public ExchangeRateDTO(Double value) {
-        this.value = value;
-    }
-
-    public Double getValue() {
-        return value;
-    }
 }
-
+// TODO: 2020-11-16 stworzyc branch lombok terefere nie chce pracowac na masterze tylko tworze branch add lombok to project wystawiam pull request
+// TODO: 2020-11-16 wrzuce brancza

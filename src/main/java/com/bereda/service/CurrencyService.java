@@ -3,6 +3,7 @@ package com.bereda.service;
 import com.bereda.entity.Currency;
 import com.bereda.exception.CurrencyExchangeRateDoesNotExistException;
 import com.bereda.repository.CurrencyRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Clock;
@@ -10,16 +11,17 @@ import java.time.LocalDate;
 
 import static java.time.LocalDateTime.now;
 
+@AllArgsConstructor
 @Service
 public class CurrencyService {
 
     private final CurrencyRepository currencyRepository;
     private final Clock clock;
-
-    public CurrencyService(final CurrencyRepository currencyRepository, final Clock clock) {
-        this.currencyRepository = currencyRepository;
-        this.clock = clock;
-    }
+//
+//    public CurrencyService(final CurrencyRepository currencyRepository, final Clock clock) {
+//        this.currencyRepository = currencyRepository;
+//        this.clock = clock;
+//    }
 
     public void save(final String from, final String to, final Double value) {
         final Currency entity = new Currency(from, to, value, now(clock));

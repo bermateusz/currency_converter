@@ -1,8 +1,15 @@
 package com.bereda.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Builder
+@Data
+@AllArgsConstructor
 @Entity
 @Table(name = "currencies")
 public class Currency {
@@ -18,7 +25,6 @@ public class Currency {
     private Double value;
     private LocalDateTime createdAt;
 
-
     public Currency() {
     }
 
@@ -26,46 +32,6 @@ public class Currency {
         this.from = from;
         this.to = to;
         this.value = value;
-        this.createdAt = createdAt;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFrom() {
-        return from;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-    public void setTo(String to) {
-        this.to = to;
-    }
-
-    public Double getValue() {
-        return value;
-    }
-
-    public void setValue(Double value) {
-        this.value = value;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 }

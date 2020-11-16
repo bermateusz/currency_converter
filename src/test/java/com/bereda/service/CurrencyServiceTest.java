@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Optional;
 
-import static java.time.LocalDateTime.now;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.Mockito.verify;
@@ -153,7 +152,6 @@ class CurrencyServiceTest {
         String from = "EUR";
         String to = "PLN";
         Double rateEurToPln = 4.00;
-        Double ratePlnToEur = 1 / rateEurToPln;
         LocalDate localDate = LocalDate.of(2020, 12, 12);
 
 
@@ -163,7 +161,7 @@ class CurrencyServiceTest {
             currency.setFrom("EUR");
             currency.setTo("PLN");
             currency.setValue(4.00);
-            currency.setCreatedAt(now());
+            currency.setCreatedAt(LocalDateTime.of(2020,12,12,5,55));
             return currency;
         }
 
@@ -172,8 +170,8 @@ class CurrencyServiceTest {
             currency.setId(1L);
             currency.setFrom("PLN");
             currency.setTo("EUR");
-            currency.setValue(1 / 4.00);
-            currency.setCreatedAt(now());
+            currency.setValue(1/4.00);
+            currency.setCreatedAt(LocalDateTime.of(2020,12,12,5,55));
             return currency;
         }
     }

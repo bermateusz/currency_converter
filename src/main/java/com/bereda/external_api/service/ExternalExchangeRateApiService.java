@@ -8,7 +8,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
 
-//@AllArgsConstructor
 @Service
 public class ExternalExchangeRateApiService {
 

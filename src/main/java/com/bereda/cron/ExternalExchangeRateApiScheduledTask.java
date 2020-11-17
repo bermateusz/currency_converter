@@ -25,7 +25,7 @@ public class ExternalExchangeRateApiScheduledTask {
         this.currenciesToImport = currenciesToImport;
     }
 
-    @Scheduled(cron = "* */5 * * * *")
+    @Scheduled(cron = "*/30 * * * * *")
     public void returnExchangeRateAndSave() {
         currenciesToImport.forEach(currency -> {
             externalExchangeRateApiService.exchangeRateApiRequest(currency)

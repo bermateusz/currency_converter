@@ -29,7 +29,5 @@ public class ExternalExchangeRateApiService {
             //logging
             return Optional.empty();
         }
-
-
     }
 }

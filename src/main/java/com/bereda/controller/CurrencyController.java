@@ -18,13 +18,10 @@ public class CurrencyController {
 
     private final CurrencyService currencyService;
 
-//    public CurrencyController(final CurrencyService currencyService) {
-//        this.currencyService = currencyService;
-//    }
-
     @GetMapping
     public ExchangeRateDTO findExchangeRate(@RequestParam final String from, @RequestParam final String to,
-                                            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate createdAt) {
+                                            @RequestParam(required = false)
+                                            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate createdAt) {
         return ExchangeRateDTO.builder()
                 .value(currencyService.findExchangeRate(from,to,createdAt))
                 .build();

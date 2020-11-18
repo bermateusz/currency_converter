@@ -3,6 +3,7 @@ package com.bereda.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "currencies")
 public class Currency {
@@ -24,14 +26,4 @@ public class Currency {
     private String to;
     private Double value;
     private LocalDateTime createdAt;
-
-    public Currency() {
-    }
-
-    public Currency(String from, String to, Double value, LocalDateTime createdAt) {
-        this.from = from;
-        this.to = to;
-        this.value = value;
-        this.createdAt = createdAt;
-    }
 }

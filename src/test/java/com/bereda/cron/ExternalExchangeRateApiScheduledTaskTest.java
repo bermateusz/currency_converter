@@ -98,7 +98,6 @@ class ExternalExchangeRateApiScheduledTaskTest {
         final ExternalExchangeRateResponse fakeExchangeRateResponseForUsd = fakeExchangeRateResponseForUsd();
 
         private ExternalExchangeRateResponse fakeExchangeRateResponseForPln() {
-            ExternalExchangeRateResponse fakeExternalRateResponseForPln = new ExternalExchangeRateResponse();
             Map<String, Double> plnCurrencyMap = Map.of(
                     "AED", 0.970862,
                     "AFN", 20.306704,
@@ -106,13 +105,13 @@ class ExternalExchangeRateApiScheduledTaskTest {
                     "AMD", 127.295754,
                     "ANG", 0.473994,
                     "AOA", 175.794905);
-            fakeExternalRateResponseForPln.setBase("PLN");
-            fakeExternalRateResponseForPln.setRates(plnCurrencyMap);
-            return fakeExternalRateResponseForPln;
+            return ExternalExchangeRateResponse.builder()
+                    .base("PLN")
+                    .rates(plnCurrencyMap)
+                    .build();
         }
 
         private ExternalExchangeRateResponse fakeExchangeRateResponseForUsd() {
-            ExternalExchangeRateResponse fakeExternalRateResponseForUsd = new ExternalExchangeRateResponse();
             Map<String, Double> usdCurrencyMap = Map.of(
                     "AED", 3.673,
                     "AFN", 77.00,
@@ -120,9 +119,10 @@ class ExternalExchangeRateApiScheduledTaskTest {
                     "AMD", 481.616225,
                     "ANG", 1.791162,
                     "AOA", 665.784995);
-            fakeExternalRateResponseForUsd.setBase("USD");
-            fakeExternalRateResponseForUsd.setRates(usdCurrencyMap);
-            return fakeExternalRateResponseForUsd;
+            return ExternalExchangeRateResponse.builder()
+                    .base("USD")
+                    .rates(usdCurrencyMap)
+                    .build();
         }
 
     }

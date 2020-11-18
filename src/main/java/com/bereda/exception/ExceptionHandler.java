@@ -11,9 +11,12 @@ public class ExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @org.springframework.web.bind.annotation.ExceptionHandler(CurrencyExchangeRateDoesNotExistException.class)
     public ResponseEntity<ErrorDetails> handleCurrencyExchangeRateDoesNotExistException(CurrencyExchangeRateDoesNotExistException exception, WebRequest request) {
-        return buildResponseEntity(new ErrorDetails(exception.getMessage(), request.getDescription(false), HttpStatus.NOT_FOUND));
+        return buildResponseEntity(ErrorDetails.builder()
+                .message(exception.getMessage())
+                .details(request.getDescription(false))
+                .status(HttpStatus.NOT_FOUND)
+                .build());
     }
-
     private ResponseEntity<ErrorDetails> buildResponseEntity(ErrorDetails errorDetails) {
         return new ResponseEntity<>(errorDetails, errorDetails.getStatus());
     }

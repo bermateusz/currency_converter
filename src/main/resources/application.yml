@@ -25,11 +25,7 @@ apiRequest:
   url: https://api.exchangerate.host/latest?base=
 
 cron:
-  expression : '0 0 */1 * * *'
+  expression: '0 */1 * * * *'
 
-currencies: >
-  PLN,
-  EUR,
-  USD,
-  GBP
+currencies: PLN,EUR,USD,GBP
 

@@ -15,6 +15,7 @@ public class ExternalExchangeRateResponse {
     Map<String, Double> rates;
 
     @JsonPOJOBuilder(withPrefix = "")
-    public static final class ExternalExchangeRateResponseBuilder {}
+    public static final class ExternalExchangeRateResponseBuilder {
+    }
 }
 

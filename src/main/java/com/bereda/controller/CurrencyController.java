@@ -23,7 +23,7 @@ public class CurrencyController {
                                             @RequestParam(required = false)
                                             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate createdAt) {
         return ExchangeRateDTO.builder()
-                .value(currencyService.findExchangeRate(from,to,createdAt))
+                .value(currencyService.findExchangeRate(from, to, createdAt))
                 .build();
     }
 

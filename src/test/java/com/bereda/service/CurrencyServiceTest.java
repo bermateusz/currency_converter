@@ -145,34 +145,32 @@ class CurrencyServiceTest {
 
 
     public static class Fixtures {
-
-
         Currency eurToPlnData = createFakeEurToPlnData();
         Currency plnToEurData = createFakePlnToEurData();
         String from = "EUR";
         String to = "PLN";
         Double rateEurToPln = 4.00;
         LocalDate localDate = LocalDate.of(2020, 12, 12);
-
+        LocalDateTime localDateTime = LocalDateTime.of(2020,12,12,5,55);
 
         private Currency createFakeEurToPlnData() {
-            Currency currency = new Currency();
-            currency.setId(1L);
-            currency.setFrom("EUR");
-            currency.setTo("PLN");
-            currency.setValue(4.00);
-            currency.setCreatedAt(LocalDateTime.of(2020,12,12,5,55));
-            return currency;
+            return Currency.builder()
+                    .id(1L)
+                    .from("EUR")
+                    .to("PLN")
+                    .value(4.00)
+                    .createdAt(localDateTime)
+                    .build();
         }
 
         private Currency createFakePlnToEurData() {
-            Currency currency = new Currency();
-            currency.setId(1L);
-            currency.setFrom("PLN");
-            currency.setTo("EUR");
-            currency.setValue(1/4.00);
-            currency.setCreatedAt(LocalDateTime.of(2020,12,12,5,55));
-            return currency;
+            return Currency.builder()
+                    .id(1L)
+                    .from("PLN")
+                    .to("EUR")
+                    .value(1/4.00)
+                    .createdAt(localDateTime)
+                    .build();
         }
     }
 }

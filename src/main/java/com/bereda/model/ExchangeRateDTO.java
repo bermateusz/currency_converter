@@ -1,15 +1,10 @@
 package com.bereda.model;
 
+import lombok.Builder;
+import lombok.Value;
+
+@Builder
+@Value
 public class ExchangeRateDTO {
-
-    private final Double value;
-
-    public ExchangeRateDTO(Double value) {
-        this.value = value;
-    }
-
-    public Double getValue() {
-        return value;
-    }
+    Double value;
 }
-

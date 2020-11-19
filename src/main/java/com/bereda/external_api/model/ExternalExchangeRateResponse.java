@@ -1,35 +1,20 @@
 package com.bereda.external_api.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.Builder;
+import lombok.Value;
+
 import java.util.Map;
 
+@Builder
+@Value
+@JsonDeserialize(builder = ExternalExchangeRateResponse.ExternalExchangeRateResponseBuilder.class)
 public class ExternalExchangeRateResponse {
-    private String base;
-    private Map<String, Double> rates;
+    String base;
+    Map<String, Double> rates;
 
-
-    public ExternalExchangeRateResponse() {
-    }
-
-    public ExternalExchangeRateResponse(String base, Map<String, Double> rates) {
-        this.base = base;
-        this.rates = rates;
-    }
-
-    public String getBase() {
-        return base;
-    }
-
-    public void setBase(String base) {
-        this.base = base;
-    }
-
-    public Map<String, Double> getRates() {
-        return rates;
-    }
-
-    public void setRates(Map<String, Double> rates) {
-        this.rates = rates;
-    }
-
+    @JsonPOJOBuilder(withPrefix = "")
+    public static final class ExternalExchangeRateResponseBuilder {}
 }
 

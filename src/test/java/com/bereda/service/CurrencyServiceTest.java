@@ -145,31 +145,21 @@ class CurrencyServiceTest {
 
 
     public static class Fixtures {
-        Currency eurToPlnData = createFakeEurToPlnData();
-        Currency plnToEurData = createFakePlnToEurData();
-        String from = "EUR";
-        String to = "PLN";
-        Double rateEurToPln = 4.00;
-        LocalDate localDate = LocalDate.of(2020, 12, 12);
-        LocalDateTime localDateTime = LocalDateTime.of(2020,12,12,5,55);
+        final String from = "EUR";
+        final String to = "PLN";
+        final Double rateEurToPln = 4.00;
+        final Double ratePlnToEuro = 1 / rateEurToPln;
+        final LocalDate localDate = LocalDate.of(2020, 12, 12);
+        final LocalDateTime localDateTime = LocalDateTime.of(2020, 12, 12, 5, 55);
+        final Currency eurToPlnData = createFakeCurrency(from, to, rateEurToPln, localDateTime);
+        final Currency plnToEurData = createFakeCurrency(to, from, ratePlnToEuro, localDateTime);
 
-        private Currency createFakeEurToPlnData() {
+        private Currency createFakeCurrency(final String from, final String to, final Double value, LocalDateTime createdAt) {
             return Currency.builder()
-                    .id(1L)
-                    .from("EUR")
-                    .to("PLN")
-                    .value(4.00)
-                    .createdAt(localDateTime)
-                    .build();
-        }
-
-        private Currency createFakePlnToEurData() {
-            return Currency.builder()
-                    .id(1L)
-                    .from("PLN")
-                    .to("EUR")
-                    .value(1/4.00)
-                    .createdAt(localDateTime)
+                    .from(from)
+                    .to(to)
+                    .value(value)
+                    .createdAt(createdAt)
                     .build();
         }
     }

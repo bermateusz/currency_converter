@@ -3,9 +3,15 @@ spring:
     database: POSTGRESQL
   profiles: heroku
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    driverClassName: org.postgresql.Driver
+    url: "${SPRING_DATASOURCE_URL}"
+    username: "${SPRING_DATASOURCE_USERNAME}"
+    password: "${SPRING_DATASOURCE_PASSWORD}"
+flyway:
+  url: "${SPRING_DATASOURCE_URL}"
+  schemas: currencies
+  user: "${SPRING_DATASOURCE_USERNAME}"
+  password: "${SPRING_DATASOURCE_PASSWORD}"
 
 apiRequest:
   url: https://api.exchangerate.host/latest?base=
@@ -20,10 +26,11 @@ spring:
     database: POSTGRESQL
   profiles: local
   datasource:
+    driverClassName: org.postgresql.Driver
     platform: postgres
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: mati
+    url: "jdbc:postgresql://localhost:5432/postgres"
+    username: "postgres"
+    password: "mati"
     show-sql: true
     generate-ddl: true
     hibernate:
@@ -33,6 +40,11 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+flyway:
+  url: "jdbc:postgresql://localhost:5432/postgres"
+  schemas: currencies
+  user: "postgres"
+  password: "mati"
 
 apiRequest:
   url: https://api.exchangerate.host/latest?base=

@@ -1,10 +1,20 @@
 spring:
+  jpa:
+    database: POSTGRESQL
   profiles: heroku
   datasource:
-    url: "${SPRING_DATABASE_URL}"
-    username: "${SPRING_DATABASE_USERNAME}"
-    password: "${SPRING_DATABASE_PASSWORD}"
-
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
 apiRequest:
   url: https://api.exchangerate.host/latest?base=
 

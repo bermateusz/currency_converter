@@ -5,14 +5,11 @@ spring:
     username: "${SPRING_DATABASE_USERNAME}"
     password: "${SPRING_DATABASE_PASSWORD}"
 
-server:
-  port: 8081
-
 apiRequest:
   url: https://api.exchangerate.host/latest?base=
 
 cron:
-  expression: '0 */1 * * * *'
+  expression: '0 0 */12 * * *'
 
 currencies: PLN,EUR,USD,GBP
 ---
@@ -34,10 +31,6 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
-
-
-server:
-  port: 8081
 
 apiRequest:
   url: https://api.exchangerate.host/latest?base=

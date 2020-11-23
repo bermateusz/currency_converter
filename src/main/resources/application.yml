@@ -1,13 +1,30 @@
 spring:
+  profiles: heroku
+  datasource:
+    url: "${SPRING_DATABASE_URL}"
+    username: "${SPRING_DATABASE_USERNAME}"
+    password: "${SPRING_DATABASE_PASSWORD}"
+
+server:
+  port: 8081
+
+apiRequest:
+  url: https://api.exchangerate.host/latest?base=
+
+cron:
+  expression: '0 */1 * * * *'
+
+currencies: PLN,EUR,USD,GBP
+---
+spring:
   jpa:
     database: POSTGRESQL
-
+  profiles: local
   datasource:
     platform: postgres
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: mati
-
     show-sql: true
     generate-ddl: true
     hibernate:
@@ -17,6 +34,7 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+
 
 server:
   port: 8081

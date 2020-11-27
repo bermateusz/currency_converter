@@ -19,7 +19,7 @@ public class CurrencyController {
     private final CurrencyService currencyService;
 
     @GetMapping
-    public ExchangeRateDTO findExchangeRate(@RequestParam final String from, @RequestParam final String to,
+    public ExchangeRateDTO findExchangeRate(@RequestParam final String from, @RequestParam(required = false) final String to,
                                             @RequestParam(required = false)
                                             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate createdAt) {
         return ExchangeRateDTO.builder()

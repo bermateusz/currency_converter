@@ -29,9 +29,17 @@ public class CurrencyService {
     }
 
     public Double findExchangeRate(final String from, final String to, final LocalDate createdAt) {
+        final String baseCurrency = "PLN";
         if (from.equals(to)) {
             return 1.0;
         }
+        if (createdAt == null && to == null)
+            return currencyRepository.findFirstByFromAndToOrderByCreatedAtDesc(from, baseCurrency)
+                    .map(Currency::getValue)
+                    .or(() -> currencyRepository.findFirstByFromAndToOrderByCreatedAtDesc(baseCurrency, from)
+                            .map(currency -> 1 / currency.getValue()))
+                    .orElseThrow(() -> new CurrencyExchangeRateDoesNotExistException("Currency exchange rate from "
+                            + from + " to " + baseCurrency + " does not exist"));
         if (createdAt != null) {
             return currencyRepository.findExchangeRateByDate(from, to, createdAt)
                     .map(Currency::getValue)
